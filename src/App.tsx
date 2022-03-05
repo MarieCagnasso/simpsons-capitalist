@@ -1,16 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
+import './style/App.css';
 import {Services} from "./Services";
 import {World} from "./world";
 import 'react-pro-sidebar/dist/css/styles.css';
-import {Col, Container, Row} from "react-bootstrap";
-import {Menu, MenuItem, ProSidebar, SidebarContent, SidebarFooter, SidebarHeader} from "react-pro-sidebar";
-import { FaGithub } from "react-icons/fa";
-import { FcManager, FcUnlock} from "react-icons/fc";
-import { GiAngelWings} from "react-icons/gi";
-import {BsCashCoin} from "react-icons/bs";
-import ProductComponent from "./components/Product";
+import {Container} from "react-bootstrap";
 import SideBar from "./components/SideBar";
+import Products from "./components/Products";
 
 
 function App() {
@@ -31,33 +26,11 @@ function App() {
 
         <div className="App">
             <SideBar wordName={world.name}/>
-
-            <Container fluid>
-                <Row>
-                    <Col>
-                        <ProductComponent prod={ world.products.product[0] } services={ services }/>
-                    </Col>
-                    <Col>
-                        <ProductComponent prod={ world.products.product[1] } services={ services }/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <ProductComponent prod={ world.products.product[2] } services={ services }/>
-                    </Col>
-                    <Col>
-                        <ProductComponent prod={ world.products.product[3] } services={ services }/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <ProductComponent prod={ world.products.product[4] } services={ services }/>
-                    </Col>
-                    <Col>
-                        <ProductComponent prod={ world.products.product[5] } services={ services }/>
-                    </Col>
-                </Row>
-            </Container>
+            <main>
+                <Container fluid>
+                    <Products products={world.products} services={services}/>
+                </Container>
+            </main>
         </div>
     );
 }

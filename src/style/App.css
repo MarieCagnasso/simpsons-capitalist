@@ -1,11 +1,28 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  height: 100vh;
+  background-image: url("../assets/nuages.svg");
 }
 
+.App {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  position: relative;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+#root {
+  height: 100%;
+}
+main {
+  padding: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

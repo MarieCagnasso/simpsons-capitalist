@@ -13,8 +13,7 @@ function Products({products, services}: ProductsProps) {
 
     return (
         <Container fluid>
-
-            <Row>
+            <Row className="g-5">
                 <Col>
                     <ProductComponent prod={products.product[0]} services={services}/>
                 </Col>
@@ -22,7 +21,7 @@ function Products({products, services}: ProductsProps) {
                     <ProductComponent prod={products.product[1]} services={services}/>
                 </Col>
             </Row>
-            <Row>
+            <Row className="g-5">
                 <Col>
                     <ProductComponent prod={products.product[2]} services={services}/>
                 </Col>
@@ -30,7 +29,7 @@ function Products({products, services}: ProductsProps) {
                     <ProductComponent prod={products.product[3]} services={services}/>
                 </Col>
             </Row>
-            <Row>
+            <Row className="g-5">
                 <Col>
                     <ProductComponent prod={products.product[4]} services={services}/>
                 </Col>

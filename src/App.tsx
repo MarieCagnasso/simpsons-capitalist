@@ -3,7 +3,6 @@ import './style/App.css';
 import {Services} from "./Services";
 import {World} from "./world";
 import 'react-pro-sidebar/dist/css/styles.css';
-import {Container} from "react-bootstrap";
 import SideBar from "./components/SideBar";
 import Products from "./components/Products";
 
@@ -21,15 +20,11 @@ function App() {
         )
     }, [])
 
-
     return (
-
         <div className="App">
             <SideBar wordName={world.name}/>
             <main>
-                <Container fluid>
                     <Products products={world.products} services={services}/>
-                </Container>
             </main>
         </div>
     );

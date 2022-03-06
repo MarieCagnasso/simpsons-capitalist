@@ -5,11 +5,20 @@ import {GiAngelWings} from "react-icons/gi";
 import {FaGithub} from "react-icons/fa";
 import React, {useState} from "react";
 import App from "../App";
+import { NavLink } from "react-router-dom";
+import Managers from "./modals/Managers";
+import {Pallier, Product} from "../world";
+import {Services} from "../Services";
 
 type SideBarProps = {
     wordName: String
+    managers : { "pallier": Pallier[]}
+    products : { "product": Product[] }
+    money : Number
+    services : Services
+
 }
-function SideBar({wordName}:SideBarProps){
+function SideBar({wordName, managers,products,money,services}:SideBarProps){
     const [collapsed, setCollapsed] = useState(false);
     const handleCollapsedSidebar = () => {
         if (collapsed) {
@@ -19,6 +28,10 @@ function SideBar({wordName}:SideBarProps){
 
         }
     };
+    const [show, setShow] = useState(false);
+
+    const handleShow = () => setShow(true);
+
     return(
         <ProSidebar
             collapsed={collapsed}
@@ -46,7 +59,7 @@ function SideBar({wordName}:SideBarProps){
                     <MenuItem icon={<FcUnlock/>}>Unlock</MenuItem>
                     <MenuItem icon={<BsCashCoin/>}> Cash upgrade</MenuItem>
                     <MenuItem icon={<GiAngelWings/>}> Angel upgrade</MenuItem>
-                    <MenuItem icon={<FcManager/>}> Manager</MenuItem>
+                    <Managers managers={managers} products={products} money={money} services={services}/>
                     <MenuItem icon={<GiAngelWings/>}> Angel</MenuItem>
                 </Menu>
             </SidebarContent>

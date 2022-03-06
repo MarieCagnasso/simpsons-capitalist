@@ -1,3 +1,10 @@
+.listProduct .row{
+    margin-bottom: 20px;
+}
+.imageProduct,.levelProduct{
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 7px 13px;
+}
 .imageProduct img {
     width: 80px;
     height: 80px;
@@ -7,14 +14,27 @@
     height: 120px;
     border-radius: 50%;
     background-color: #F9D64F;
-    box-shadow: rgba(0, 0, 0, 0.17) 0px 7px 13px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
+.levelProduct{
+    background-color: #FFFFFF;
+    border-radius: 50px;
+    position: relative;
+    bottom: 17px;
+    width: 120px;
+}
+.boxlabelsproduct{
+    min-height: 100%;
+}
 .boxlabelproduct{
     background-color: #7BCDFD;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
     padding: 10px;
+    border-radius: 5px;
+}
+
+@media (max-width: 576px) {
+
 }

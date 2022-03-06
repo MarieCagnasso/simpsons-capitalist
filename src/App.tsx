@@ -38,7 +38,8 @@ function App() {
 
     return (
         <div className="App">
-            <SideBar wordName={world.name} managers={world.managers} products={world.products} money={world.money} services={services}/>
+            <SideBar wordName={world.name} managers={world.managers} products={world.products}
+                     money={world.money} services={services} unlocks={world.allunlocks}/>
             <main>
                 <Container fluid className="mb-5">
                     <Row>

@@ -1,17 +1,16 @@
 import React, {useState} from "react";
 import { Modal} from "react-bootstrap";
 import {MenuItem} from "react-pro-sidebar";
-import {FcManager} from "react-icons/fc";
+import {FcManager, FcUnlock} from "react-icons/fc";
 import {Pallier, Product} from "../../world";
 import Manager from "./Manager";
 import {Services} from "../../Services";
-type ManagersProps = {
-    managers : { "pallier": Pallier[]}
-    products : { "product": Product[] }
-    money : Number
+import Unlock from "./Unlock";
+type UnlocksProps = {
+    unlocks : { "pallier": Pallier[]}
     services : Services
 }
-function Managers({managers,products,money,services}:ManagersProps) {
+function Unlocks({unlocks,services}:UnlocksProps) {
     const [show, setShow] = useState(false);
 
     const handleShow = () => setShow(true);
@@ -20,19 +19,16 @@ function Managers({managers,products,money,services}:ManagersProps) {
     return (
         <>
             <span onClick={handleShow}>
-                <MenuItem icon={<FcManager/>}>
-                    Managers
-                </MenuItem>
+                <MenuItem icon={<FcUnlock/>}>Unlock</MenuItem>
             </span>
-
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Managers make you feel better !</Modal.Title>
+                    <Modal.Title>Unlocks</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {managers.pallier.filter( manager => !manager.unlocked).map(
-                    m =>
-                        <Manager manager={m} products={products} money={money} services={services}/>
+                    {unlocks.pallier.filter( manager => !manager.unlocked).map(
+                    u =>
+                        <Unlock unlock={u} services={services}/>
                     )}
 
                     </Modal.Body>
@@ -43,4 +39,4 @@ function Managers({managers,products,money,services}:ManagersProps) {
     );
 }
 
-export default Managers;
+export default Unlocks;

@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import Managers from "./modals/Managers";
 import {Pallier, Product} from "../world";
 import {Services} from "../Services";
+import Unlocks from "./modals/Unlocks";
 
 type SideBarProps = {
     wordName: String
@@ -16,9 +17,9 @@ type SideBarProps = {
     products : { "product": Product[] }
     money : Number
     services : Services
-
+    unlocks:{ "pallier": Pallier[]}
 }
-function SideBar({wordName, managers,products,money,services}:SideBarProps){
+function SideBar({wordName, managers,products,money,services,unlocks}:SideBarProps){
     const [collapsed, setCollapsed] = useState(false);
     const handleCollapsedSidebar = () => {
         if (collapsed) {
@@ -56,7 +57,7 @@ function SideBar({wordName, managers,products,money,services}:SideBarProps){
             </SidebarHeader>
             <SidebarContent>
                 <Menu iconShape="circle">
-                    <MenuItem icon={<FcUnlock/>}>Unlock</MenuItem>
+                    <Unlocks unlocks={unlocks} services={services}/>
                     <MenuItem icon={<BsCashCoin/>}> Cash upgrade</MenuItem>
                     <MenuItem icon={<GiAngelWings/>}> Angel upgrade</MenuItem>
                     <Managers managers={managers} products={products} money={money} services={services}/>

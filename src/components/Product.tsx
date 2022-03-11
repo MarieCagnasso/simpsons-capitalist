@@ -9,19 +9,19 @@ type ProductProps = {
     prod: Product,
     onProductionDone: (product: Product) => void,
     services: Services,
-    qtmulti : Number,
-    wordmoney : Number,
+    qtmulti : String,
+    wordmoney : number,
 }
 
 function ProductComponent({ prod,onProductionDone, services,qtmulti,wordmoney } : ProductProps) {
     const [progress, setProgress] = useState(0)
+    const [qte, setQte] = useState(0)
 
     const startFabrication= () => {
         prod.timeleft = prod.vitesse;
         prod.lastupdate = Date.now();
     }
     const calcScore=()=>{
-        if (prod==null) return
         if (prod.timeleft!==0){
             prod.timeleft-=(Date.now()- prod.lastupdate);
             prod.lastupdate = Date.now()
@@ -34,8 +34,16 @@ function ProductComponent({ prod,onProductionDone, services,qtmulti,wordmoney } 
             }
         }
     }
-    const savedCallback = useRef(calcScore)
 
+    const calcMaxCanBuy = () => {
+      if (qtmulti==="Max") setQte(Math.floor(Math.log(1 - wordmoney * (1 - prod.croissance) / prod.cout) / Math.log(prod.croissance)))
+      else setQte(Number(qtmulti))
+    }
+    useEffect(()=>{
+        calcMaxCanBuy()
+    })
+
+    const savedCallback = useRef(calcScore)
     useEffect(() => savedCallback.current = calcScore)
     useEffect(() => {
         let timer = setInterval(() => savedCallback.current(), 100);
@@ -44,8 +52,6 @@ function ProductComponent({ prod,onProductionDone, services,qtmulti,wordmoney } 
     }, [])
 
 
-    if (prod == null) return (<div></div>)
-    else {
     return (
         <Row>
             <Col sm={3} className='colimageProduct' onClick={startFabrication}>
@@ -62,7 +68,7 @@ function ProductComponent({ prod,onProductionDone, services,qtmulti,wordmoney } 
                         <ProgressBar transitionDuration={"0.1s"} customLabel= {prod.revenu.toString()} completed={progress} />
                     </Col>
                     <Col className="boxlabelproduct me-1">
-                        {qtmulti} {prod.cout}
+                        {qte} {prod.cout}
                     </Col>
                     <Col xs={3} className="boxlabelproduct">
                         {prod.vitesse}
@@ -70,6 +76,6 @@ function ProductComponent({ prod,onProductionDone, services,qtmulti,wordmoney } 
                 </Row>
             </Col>
         </Row>
-    )}
+    )
 }
 export default ProductComponent;

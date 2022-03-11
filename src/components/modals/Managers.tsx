@@ -32,7 +32,7 @@ function Managers({managers,products,money,services}:ManagersProps) {
                 <Modal.Body>
                     {managers.pallier.filter( manager => !manager.unlocked).map(
                     m =>
-                        <Manager manager={m} products={products} money={money} services={services}/>
+                        <Manager key={m.name} manager={m} products={products} money={money} services={services}/>
                     )}
 
                     </Modal.Body>

@@ -11,16 +11,18 @@ import ProductComponent from "./components/Product";
 function App() {
     const [services, setServices] = useState(new Services(""))
     const [world, setWorld] = useState(new World())
-    const [qtmulti, setqtmiltu ]= useState(1)
+    const [qtmulti, setqtmiltu ]= useState("1")
 
     const multiplicateur = () =>{
         switch (qtmulti){
-            case 1:
-                return  setqtmiltu(10)
-            case 10:
-                return  setqtmiltu(100)
-            case 100:
-                return  setqtmiltu(1)
+            case "1":
+                return  setqtmiltu("10")
+            case '10':
+                return  setqtmiltu('100')
+            case '100':
+                return  setqtmiltu('Max')
+            case 'Max':
+                return  setqtmiltu('1')
 
         }
     }
@@ -40,7 +42,8 @@ function App() {
             }
         )
     }, [])
-
+    if (world.products.product.length ===0) return (<div></div>)
+    else {
         return (
             <div className="App">
                 <SideBar wordName={world.name} managers={world.managers} products={world.products}
@@ -58,31 +61,37 @@ function App() {
                     <Container fluid className='listProduct'>
                         <Row xs={1} md={1} lg={2} className="g-5">
                             <Col>
-                                <ProductComponent prod={world.products.product[0]} services={services} qtmulti={qtmulti}
+                                <ProductComponent key={world.products.product[0].name} prod={world.products.product[0]}
+                                                  services={services} qtmulti={qtmulti}
                                                   wordmoney={world.money} onProductionDone={onProductionDone}/>
                             </Col>
                             <Col>
-                                <ProductComponent prod={world.products.product[1]} services={services} qtmulti={qtmulti}
-                                                  wordmoney={world.money} onProductionDone={onProductionDone}/>
-                            </Col>
-                        </Row>
-                        <Row xs={1} md={1} lg={2} className="g-5">
-                            <Col>
-                                <ProductComponent prod={world.products.product[2]} services={services} qtmulti={qtmulti}
-                                                  wordmoney={world.money} onProductionDone={onProductionDone}/>
-                            </Col>
-                            <Col>
-                                <ProductComponent prod={world.products.product[3]} services={services} qtmulti={qtmulti}
+                                <ProductComponent key={world.products.product[1].name} prod={world.products.product[1]}
+                                                  services={services} qtmulti={qtmulti}
                                                   wordmoney={world.money} onProductionDone={onProductionDone}/>
                             </Col>
                         </Row>
                         <Row xs={1} md={1} lg={2} className="g-5">
                             <Col>
-                                <ProductComponent prod={world.products.product[4]} services={services} qtmulti={qtmulti}
+                                <ProductComponent key={world.products.product[2].name} prod={world.products.product[2]}
+                                                  services={services} qtmulti={qtmulti}
                                                   wordmoney={world.money} onProductionDone={onProductionDone}/>
                             </Col>
                             <Col>
-                                <ProductComponent prod={world.products.product[5]} services={services} qtmulti={qtmulti}
+                                <ProductComponent key={world.products.product[3].name} prod={world.products.product[3]}
+                                                  services={services} qtmulti={qtmulti}
+                                                  wordmoney={world.money} onProductionDone={onProductionDone}/>
+                            </Col>
+                        </Row>
+                        <Row xs={1} md={1} lg={2} className="g-5">
+                            <Col>
+                                <ProductComponent key={world.products.product[4].name} prod={world.products.product[4]}
+                                                  services={services} qtmulti={qtmulti}
+                                                  wordmoney={world.money} onProductionDone={onProductionDone}/>
+                            </Col>
+                            <Col>
+                                <ProductComponent key={world.products.product[5].name} prod={world.products.product[5]}
+                                                  services={services} qtmulti={qtmulti}
                                                   wordmoney={world.money} onProductionDone={onProductionDone}/>
                             </Col>
                         </Row>
@@ -90,7 +99,7 @@ function App() {
                 </main>
             </div>
         );
-
+    }
 }
 
 export default App;

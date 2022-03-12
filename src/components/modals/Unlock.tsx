@@ -12,7 +12,10 @@ function Unlock({unlock,services}:UnlockProps){
 return(
     <Row>
         <Col><img className={"imgManager"} src={services.server+unlock.logo}></img></Col>
-        <Col><p>{unlock.name}</p><p>{unlock.seuil}</p></Col>
+        <Col><p>{unlock.name}</p>
+            <p>{unlock.seuil}</p>
+            <p>{unlock.typeratio} x{unlock.ratio}</p>
+        </Col>
     </Row>
 )
 }

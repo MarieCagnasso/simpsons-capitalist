@@ -1,9 +1,10 @@
 import {Services} from "../Services";
-import {Product} from "../world";
+import {Pallier, Product} from "../world";
 import '../style/product.css';
 import {Col, Row} from "react-bootstrap";
 import React, {useEffect, useRef, useState} from "react";
 import ProgressBar from "./ProgressBar";
+import unlock from "./modals/Unlock";
 
 type ProductProps = {
     prod: Product,
@@ -13,9 +14,11 @@ type ProductProps = {
     qtmulti : String,
     wordmoney : number,
     onUnlocked : (msg:string,title:string)=>void
+    allUnlock : { "pallier": Pallier[]}
+    onAllUnlock : (unlock : Pallier)=>void
 }
 
-function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti,wordmoney,onUnlocked } : ProductProps) {
+function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti,wordmoney,onUnlocked,allUnlock,onAllUnlock} : ProductProps) {
     const [progress, setProgress] = useState(0)
     const [qtmultiNumber, setqtmultiNumber] = useState(0)
     const [qtexPrice, setQtexPrice] = useState(0)
@@ -75,6 +78,9 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                     }
                 }
             )
+            allUnlock.pallier.filter(p => !p.unlocked).map(unlock => {
+                if (unlock.seuil<=prod.quantite) onAllUnlock(unlock)
+            })
         }
     }
 

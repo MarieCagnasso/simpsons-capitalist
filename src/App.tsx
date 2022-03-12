@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './style/App.css';
 import {Services} from "./Services";
-import {Product, World} from "./world";
+import {Pallier, Product, World} from "./world";
 import 'react-pro-sidebar/dist/css/styles.css';
 import SideBar from "./components/SideBar";
 import {Button, Col, Container, Row, Toast, ToastContainer} from "react-bootstrap";
@@ -35,6 +35,25 @@ function App() {
         setTitleToast(title)
         setMsgToast(msg)
         toggleShowToast()
+    }
+    function isAllUnlocked(seuil:number){
+        world.products.product.map(p =>{
+            if (p.quantite<seuil) return false
+        })
+        return true
+    }
+    function onAllUnlock(unlock:Pallier){
+        if(isAllUnlocked(unlock.seuil)){
+            unlock.unlocked = true
+            world.products.product.map(p=>{
+                if (unlock.typeratio=='VITESSE'){
+                    p.vitesse /= unlock.ratio
+                    p.timeleft /= unlock.ratio
+                }if (unlock.typeratio=='GAIN'){
+                    p.revenu *= unlock.ratio
+                }
+            })
+        }
     }
     function onProductionDone(p: Product): void {
         addToScore(p.revenu*p.quantite)
@@ -114,13 +133,15 @@ else {
                             <ProductComponent key={world.products.product[0].name} prod={world.products.product[0]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                         <Col>
                             <ProductComponent key={world.products.product[1].name} prod={world.products.product[1]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                     </Row>
                     <Row xs={1} md={1} lg={2} className="g-5">
@@ -128,13 +149,15 @@ else {
                             <ProductComponent key={world.products.product[2].name} prod={world.products.product[2]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                         <Col>
                             <ProductComponent key={world.products.product[3].name} prod={world.products.product[3]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                     </Row>
                     <Row xs={1} md={1} lg={2} className="g-5">
@@ -142,13 +165,15 @@ else {
                             <ProductComponent key={world.products.product[4].name} prod={world.products.product[4]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                         <Col>
                             <ProductComponent key={world.products.product[5].name} prod={world.products.product[5]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                     </Row>
                 </Container>

@@ -26,7 +26,7 @@ function Unlocks({unlocks,services}:UnlocksProps) {
                     <Modal.Title>Unlocks</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {unlocks.pallier.filter( manager => !manager.unlocked).map(
+                    {unlocks.pallier.filter( unlock => !unlock.unlocked).map(
                     u =>
                         <Unlock key={u.name} unlock={u} services={services}/>
                     )}

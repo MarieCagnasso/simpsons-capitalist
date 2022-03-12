@@ -65,7 +65,6 @@ function App() {
 
     useEffect(() => {
         let username = localStorage.getItem("username");
-        console.log("useeffect username",username)
         // si pas de username, on génère un username aléatoire
         if (!username || username === "") {
         username = "Captain" + Math.floor(Math.random() * 10000); }
@@ -78,7 +77,7 @@ else {
     return (
         <div className="App">
             <SideBar wordName={world.name} managers={world.managers} products={world.products}
-                     money={world.money} services={services} unlocks={world.allunlocks}
+                     money={world.money} services={services}
                      onHireManager={onHireManager}/>
             <main>
                 <Container fluid className="mb-5">

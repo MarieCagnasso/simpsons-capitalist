@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Modal} from "react-bootstrap";
+import {Col, Modal, Row} from "react-bootstrap";
 import {MenuItem} from "react-pro-sidebar";
 import {FcManager, FcUnlock} from "react-icons/fc";
 import {Pallier, Product} from "../../world";
@@ -7,15 +7,27 @@ import Manager from "./Manager";
 import {Services} from "../../Services";
 import Unlock from "./Unlock";
 type UnlocksProps = {
-    unlocks : { "pallier": Pallier[]}
+    products : { "product": Product[] }
     services : Services
 }
-function Unlocks({unlocks,services}:UnlocksProps) {
+function Unlocks({products,services}:UnlocksProps) {
     const [show, setShow] = useState(false);
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
+    function unlock(p:Product){
+        let unlocks = p.palliers.pallier.filter(unlock => !unlock.unlocked)
+        return(
+            <Row>
+                <Col><img className={"imgManager"} src={services.server+unlocks.at(0)?.logo}></img></Col>
+                <Col><p>{unlocks.at(0)?.name}</p>
+                    <p>{unlocks.at(0)?.seuil}</p>
+                    <p>{p.name} {unlocks.at(0)?.typeratio} x{unlocks.at(0)?.ratio}</p>
+                </Col>
+            </Row>
+        )
+    }
     return (
         <>
             <span onClick={handleShow}>
@@ -26,11 +38,7 @@ function Unlocks({unlocks,services}:UnlocksProps) {
                     <Modal.Title>Unlocks</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {unlocks.pallier.filter( unlock => !unlock.unlocked).map(
-                    u =>
-                        <Unlock key={u.name} unlock={u} services={services}/>
-                    )}
-
+                    {products.product.map(p => unlock(p))}
                     </Modal.Body>
             </Modal>
         </>

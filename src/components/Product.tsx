@@ -18,6 +18,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
     const [progress, setProgress] = useState(0)
     const [qtmultiNumber, setqtmultiNumber] = useState(0)
     const [qtexPrice, setQtexPrice] = useState(0)
+    const [revenu, setRevenu] = useState(prod.revenu)
 
     const startFabrication= () => {
         prod.timeleft = prod.vitesse;
@@ -44,14 +45,18 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
     }
     useEffect(()=>{
         calcMaxCanBuy()
-        setQtexPrice(Math.floor(prod.cout * (1 - Math.pow(prod.croissance, qtmultiNumber))/ (1 - prod.croissance)))
+        let cout=0;
+        for(let i=0;i<(qtmultiNumber);i++){
+            cout=cout+prod.cout*Math.pow(prod.croissance,i);
+        }
+        setQtexPrice(cout);
     })
 
     const buyProduct = () => {
         if (qtexPrice<=wordmoney && qtexPrice>0){
             prod.quantite+=qtmultiNumber
             prod.cout = prod.cout*Math.pow(prod.croissance, qtmultiNumber)
-            prod.revenu = prod.cout * prod.quantite
+            setRevenu(prod.revenu*prod.quantite)
             calcMaxCanBuy()
             onProductBuy(qtexPrice,prod)
         }
@@ -79,7 +84,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
             <Col>
                 <Row className="g-1 boxlabelsproduct">
                     <Col xs={12} className="boxlabelproduct">
-                        <ProgressBar transitionDuration={"0.1s"} customLabel= {prod.revenu.toString()} completed={progress} />
+                        <ProgressBar transitionDuration={"0.1s"} customLabel= {revenu.toString()} completed={progress} />
                     </Col>
                     <Col className="boxlabelproduct me-1" onClick={buyProduct}>
                         {qtmultiNumber} {qtexPrice}

@@ -48,7 +48,10 @@ function App() {
     function onUserNameChanged() {
         // @ts-ignore
         let username = document.getElementById("username").value
-        if (username!="")setUsername(username)
+        if (username!=""){
+            localStorage.setItem("username", username);
+            setUsername(username)
+        }
     }
 
     useEffect(() => {

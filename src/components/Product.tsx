@@ -24,13 +24,14 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
         prod.lastupdate = Date.now();
     }
     const calcScore=()=>{
-        if (prod.timeleft!==0){
+        if (prod.timeleft!==0 || prod.managerUnlocked){
             prod.timeleft-=(Date.now()- prod.lastupdate);
             prod.lastupdate = Date.now()
             if (prod.timeleft<=0){
                 prod.timeleft = 0;
                 setProgress( 0);
                 onProductionDone(prod);
+                if (prod.managerUnlocked) startFabrication();
             }else {
                 setProgress( ((prod.vitesse - prod.timeleft)/prod.vitesse)*100)
             }

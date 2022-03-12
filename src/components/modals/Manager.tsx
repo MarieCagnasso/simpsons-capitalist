@@ -6,17 +6,20 @@ import '../../style/manager.css'
 type ManagerProps = {
     manager : Pallier
     products : { "product": Product[] }
-    money : Number
+    money : number
     services : Services
-}
-function hireManager(){
-    // if (this.money < this)
+    onHireManager:(money:number,product:Product)=>void
 }
 
-function Manager({manager,products,money,services}:ManagerProps){
+function Manager({manager,products,money,services,onHireManager}:ManagerProps){
     const hireManager = () => {
-        // const m = {money < manager.seuil}
-        // const s =
+        if (money >= manager.seuil){
+            money-=manager.seuil
+            manager.unlocked = true
+            products.product[manager.idcible-1].managerUnlocked = true
+            onHireManager(money,products.product[manager.idcible-1])
+            // services.putManager(manager)
+        }
     }
 
 

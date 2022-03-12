@@ -39,6 +39,10 @@ function App() {
         setWorld(w=>({...w, money:w.money-price}))
     }
 
+    function onHireManager(money:number,product:Product){
+        setWorld(w=>({...w, money:money, }))
+    }
+
     useEffect(() => {
         let services = new Services('marie')
         setServices(services)
@@ -52,7 +56,8 @@ function App() {
         return (
             <div className="App">
                 <SideBar wordName={world.name} managers={world.managers} products={world.products}
-                         money={world.money} services={services} unlocks={world.allunlocks}/>
+                         money={world.money} services={services} unlocks={world.allunlocks}
+                onHireManager={onHireManager}/>
                 <main>
                     <Container fluid className="mb-5">
                         <Row>

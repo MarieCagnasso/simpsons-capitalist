@@ -8,10 +8,11 @@ import {Services} from "../../Services";
 type ManagersProps = {
     managers : { "pallier": Pallier[]}
     products : { "product": Product[] }
-    money : Number
+    money : number
     services : Services
+    onHireManager:(money:number,product:Product)=>void
 }
-function Managers({managers,products,money,services}:ManagersProps) {
+function Managers({managers,products,money,services, onHireManager}:ManagersProps) {
     const [show, setShow] = useState(false);
 
     const handleShow = () => setShow(true);
@@ -32,7 +33,7 @@ function Managers({managers,products,money,services}:ManagersProps) {
                 <Modal.Body>
                     {managers.pallier.filter( manager => !manager.unlocked).map(
                     m =>
-                        <Manager key={m.name} manager={m} products={products} money={money} services={services}/>
+                        <Manager key={m.name} manager={m} products={products} money={money} services={services} onHireManager={onHireManager}/>
                     )}
 
                     </Modal.Body>

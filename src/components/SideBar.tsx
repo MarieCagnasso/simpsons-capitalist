@@ -1,11 +1,8 @@
 import {Menu, MenuItem, ProSidebar, SidebarContent, SidebarFooter, SidebarHeader} from "react-pro-sidebar";
-import {FcManager, FcUnlock} from "react-icons/fc";
 import {BsCashCoin} from "react-icons/bs";
 import {GiAngelWings} from "react-icons/gi";
 import {FaGithub} from "react-icons/fa";
 import React, {useState} from "react";
-import App from "../App";
-import { NavLink } from "react-router-dom";
 import Managers from "./modals/Managers";
 import {Pallier, Product} from "../world";
 import {Services} from "../Services";
@@ -15,11 +12,12 @@ type SideBarProps = {
     wordName: String
     managers : { "pallier": Pallier[]}
     products : { "product": Product[] }
-    money : Number
+    money : number
     services : Services
     unlocks:{ "pallier": Pallier[]}
+    onHireManager:(money:number,product:Product)=>void
 }
-function SideBar({wordName, managers,products,money,services,unlocks}:SideBarProps){
+function SideBar({wordName, managers,products,money,services,unlocks,onHireManager}:SideBarProps){
     const [collapsed, setCollapsed] = useState(false);
     const handleCollapsedSidebar = () => {
         if (collapsed) {
@@ -60,7 +58,7 @@ function SideBar({wordName, managers,products,money,services,unlocks}:SideBarPro
                     <Unlocks unlocks={unlocks} services={services}/>
                     <MenuItem icon={<BsCashCoin/>}> Cash upgrade</MenuItem>
                     <MenuItem icon={<GiAngelWings/>}> Angel upgrade</MenuItem>
-                    <Managers managers={managers} products={products} money={money} services={services}/>
+                    <Managers managers={managers} products={products} money={money} services={services} onHireManager={onHireManager}/>
                     <MenuItem icon={<GiAngelWings/>}> Angel</MenuItem>
                 </Menu>
             </SidebarContent>

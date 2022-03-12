@@ -7,6 +7,7 @@ import Managers from "./modals/Managers";
 import {Pallier, Product} from "../world";
 import {Services} from "../Services";
 import Unlocks from "./modals/Unlocks";
+import CashUpgrade from "./modals/CashUpgrade";
 
 type SideBarProps = {
     wordName: String
@@ -16,8 +17,9 @@ type SideBarProps = {
     services : Services
     onHireManager:(money:number,product:Product)=>void
     allunlocks : { "pallier": Pallier[]}
+    cashUpgrade : { "pallier": Pallier[]}
 }
-function SideBar({wordName, managers,products,money,services,onHireManager,allunlocks}:SideBarProps){
+function SideBar({wordName, managers,products,money,services,onHireManager,allunlocks,cashUpgrade}:SideBarProps){
     const [collapsed, setCollapsed] = useState(true);
     const handleCollapsedSidebar = () => {
         if (collapsed) {
@@ -28,7 +30,6 @@ function SideBar({wordName, managers,products,money,services,onHireManager,allun
         }
     };
     const [show, setShow] = useState(false);
-
     const handleShow = () => setShow(true);
 
     return(
@@ -56,7 +57,7 @@ function SideBar({wordName, managers,products,money,services,onHireManager,allun
             <SidebarContent>
                 <Menu iconShape="circle">
                     <Unlocks products={products} services={services} allunlocks={allunlocks}/>
-                    <MenuItem icon={<BsCashCoin/>}> Cash upgrade</MenuItem>
+                    <CashUpgrade products={products} upgrades={cashUpgrade} money={money} services={services}/>
                     <MenuItem icon={<GiAngelWings/>}> Angel upgrade</MenuItem>
                     <Managers managers={managers} products={products} money={money} services={services} onHireManager={onHireManager}/>
                     <MenuItem icon={<GiAngelWings/>}> Angel</MenuItem>
@@ -81,5 +82,4 @@ function SideBar({wordName, managers,products,money,services,onHireManager,allun
             </SidebarFooter>
         </ProSidebar>
     );
-}
-export default SideBar;
+}export default SideBar;

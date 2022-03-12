@@ -7,7 +7,6 @@ import SideBar from "./components/SideBar";
 import {Button, Col, Container, Row, Toast, ToastContainer} from "react-bootstrap";
 import ProductComponent from "./components/Product";
 
-
 function App() {
     const [services, setServices] = useState(new Services(""))
     const [world, setWorld] = useState(new World())
@@ -108,7 +107,7 @@ else {
         <div className="App">
             <SideBar wordName={world.name} managers={world.managers} products={world.products}
                      money={world.money} services={services} allunlocks={world.allunlocks}
-                     onHireManager={onHireManager}/>
+                     onHireManager={onHireManager} cashUpgrade={world.upgrades}/>
             <main>
                 <Container fluid className="mb-5">
                     <Row>
@@ -180,7 +179,4 @@ else {
             </main>
         </div>
     );
-}
-}
-
-export default App;
+}}export default App;

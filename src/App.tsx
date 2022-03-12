@@ -4,7 +4,7 @@ import {Services} from "./Services";
 import {Product, World} from "./world";
 import 'react-pro-sidebar/dist/css/styles.css';
 import SideBar from "./components/SideBar";
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Row, Toast, ToastContainer} from "react-bootstrap";
 import ProductComponent from "./components/Product";
 
 
@@ -13,6 +13,10 @@ function App() {
     const [world, setWorld] = useState(new World())
     const [qtmulti, setqtmiltu] = useState("1")
     const [username, setUsername] = useState("")
+    const [showToast, setShowToast] = useState(false);
+    const toggleShowToast = () => setShowToast(!showToast);
+    const [titleToast, setTitleToast] = useState("");
+    const [msgToast, setMsgToast] = useState("");
 
     const multiplicateur = () => {
         switch (qtmulti) {
@@ -27,9 +31,13 @@ function App() {
 
         }
     }
-
+    function onUnlocked(msg:string,title:string){
+        setTitleToast(title)
+        setMsgToast(msg)
+        toggleShowToast()
+    }
     function onProductionDone(p: Product): void {
-        addToScore(p.revenu)
+        addToScore(p.revenu*p.quantite)
     }
 
     function addToScore(value: number): void {
@@ -80,7 +88,7 @@ else {
     return (
         <div className="App">
             <SideBar wordName={world.name} managers={world.managers} products={world.products}
-                     money={world.money} services={services}
+                     money={world.money} services={services} allunlocks={world.allunlocks}
                      onHireManager={onHireManager}/>
             <main>
                 <Container fluid className="mb-5">
@@ -90,6 +98,14 @@ else {
                         <Col><Button onClick={multiplicateur}>x{qtmulti}</Button></Col>
                         <Col>Username<input id="username" type="text" value={username} onChange={onUserNameChanged}/></Col>
                     </Row>
+                    <ToastContainer position="top-end" className="p-3">
+                        <Toast show={showToast} onClose={toggleShowToast}>
+                            <Toast.Header>
+                                <strong className="me-auto">{titleToast}</strong>
+                            </Toast.Header>
+                            <Toast.Body>{msgToast}</Toast.Body>
+                        </Toast>
+                    </ToastContainer>
                 </Container>
                 {/*<Products products={world.products} services={services} qtmulti={qtmulti} wordmoney={world.money}/>*/}
                 <Container fluid className='listProduct'>
@@ -98,13 +114,13 @@ else {
                             <ProductComponent key={world.products.product[0].name} prod={world.products.product[0]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
                         </Col>
                         <Col>
                             <ProductComponent key={world.products.product[1].name} prod={world.products.product[1]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
                         </Col>
                     </Row>
                     <Row xs={1} md={1} lg={2} className="g-5">
@@ -112,13 +128,13 @@ else {
                             <ProductComponent key={world.products.product[2].name} prod={world.products.product[2]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
                         </Col>
                         <Col>
                             <ProductComponent key={world.products.product[3].name} prod={world.products.product[3]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
                         </Col>
                     </Row>
                     <Row xs={1} md={1} lg={2} className="g-5">
@@ -126,13 +142,13 @@ else {
                             <ProductComponent key={world.products.product[4].name} prod={world.products.product[4]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
                         </Col>
                         <Col>
                             <ProductComponent key={world.products.product[5].name} prod={world.products.product[5]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy}/>
+                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}/>
                         </Col>
                     </Row>
                 </Container>

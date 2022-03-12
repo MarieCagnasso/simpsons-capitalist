@@ -12,9 +12,10 @@ type ProductProps = {
     services: Services,
     qtmulti : String,
     wordmoney : number,
+    onUnlocked : (msg:string,title:string)=>void
 }
 
-function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti,wordmoney } : ProductProps) {
+function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti,wordmoney,onUnlocked } : ProductProps) {
     const [progress, setProgress] = useState(0)
     const [qtmultiNumber, setqtmultiNumber] = useState(0)
     const [qtexPrice, setQtexPrice] = useState(0)
@@ -59,6 +60,21 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
             setRevenu(prod.revenu*prod.quantite)
             calcMaxCanBuy()
             onProductBuy(qtexPrice,prod)
+
+            prod.palliers.pallier.filter(unlock => !unlock.unlocked).map(unlock=>{
+                    if (unlock.seuil<=prod.quantite){
+                        unlock.unlocked = true
+                        if (unlock.typeratio=='VITESSE'){
+                            prod.vitesse /= unlock.ratio
+                            prod.timeleft /= unlock.ratio
+                        }
+                        if (unlock.typeratio=='GAIN'){
+                            prod.revenu *= unlock.ratio
+                        }
+                        onUnlocked(prod.name + " " + unlock.typeratio +" x"+unlock.ratio,'Unlocked')
+                    }
+                }
+            )
         }
     }
 

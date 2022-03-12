@@ -15,9 +15,10 @@ type SideBarProps = {
     money : number
     services : Services
     onHireManager:(money:number,product:Product)=>void
+    allunlocks : { "pallier": Pallier[]}
 }
-function SideBar({wordName, managers,products,money,services,onHireManager}:SideBarProps){
-    const [collapsed, setCollapsed] = useState(false);
+function SideBar({wordName, managers,products,money,services,onHireManager,allunlocks}:SideBarProps){
+    const [collapsed, setCollapsed] = useState(true);
     const handleCollapsedSidebar = () => {
         if (collapsed) {
             setCollapsed(false)
@@ -54,7 +55,7 @@ function SideBar({wordName, managers,products,money,services,onHireManager}:Side
             </SidebarHeader>
             <SidebarContent>
                 <Menu iconShape="circle">
-                    <Unlocks products={products} services={services}/>
+                    <Unlocks products={products} services={services} allunlocks={allunlocks}/>
                     <MenuItem icon={<BsCashCoin/>}> Cash upgrade</MenuItem>
                     <MenuItem icon={<GiAngelWings/>}> Angel upgrade</MenuItem>
                     <Managers managers={managers} products={products} money={money} services={services} onHireManager={onHireManager}/>

@@ -45,6 +45,10 @@ main {
   color: #61dafb;
 }
 
+.toast-container .toast{
+  background: #7cea7c;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

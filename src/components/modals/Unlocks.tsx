@@ -1,22 +1,22 @@
 import React, {useState} from "react";
 import {Col, Modal, Row} from "react-bootstrap";
 import {MenuItem} from "react-pro-sidebar";
-import {FcManager, FcUnlock} from "react-icons/fc";
+import {FcUnlock} from "react-icons/fc";
 import {Pallier, Product} from "../../world";
-import Manager from "./Manager";
 import {Services} from "../../Services";
 import Unlock from "./Unlock";
 type UnlocksProps = {
     products : { "product": Product[] }
     services : Services
+    allunlocks:{ "pallier": Pallier[]}
 }
-function Unlocks({products,services}:UnlocksProps) {
+function Unlocks({products,services,allunlocks}:UnlocksProps) {
     const [show, setShow] = useState(false);
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
-    function unlock(p:Product){
+    function unlockProd(p:Product){
         let unlocks = p.palliers.pallier.filter(unlock => !unlock.unlocked)
         return(
             <Row>
@@ -38,7 +38,8 @@ function Unlocks({products,services}:UnlocksProps) {
                     <Modal.Title>Unlocks</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {products.product.map(p => unlock(p))}
+                    {products.product.map(p => unlockProd(p))}
+                    {allunlocks.pallier.filter(u => !u.unlocked).map(u => <Unlock unlock={u} services={services}/>)}
                     </Modal.Body>
             </Modal>
         </>

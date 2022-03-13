@@ -54,8 +54,8 @@ function App() {
             })
         }
     }
-    // 𝑟𝑜𝑑𝑢𝑐𝑡.𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑒 ∗ 𝑝𝑟𝑜𝑑𝑢𝑐𝑡.𝑟𝑒𝑣𝑒𝑛𝑢 ∗ (1 + 𝑤𝑜𝑟𝑙𝑑.𝑎𝑐𝑡𝑖𝑣𝑒𝑎𝑛𝑔𝑒𝑙𝑠 ∗ 𝑤𝑜𝑟𝑙𝑑.𝑎𝑛𝑔𝑒𝑙𝑏𝑜𝑛𝑢𝑠/100)
     function onProductionDone(p: Product): void {
+        services.putProduct(p)
         addToScore(p.revenu*p.quantite*(1+world.activeangels*world.angelbonus/100))
     }
 
@@ -64,7 +64,7 @@ function App() {
     }
 
     function onProductBuy(price: number, product: Product): void {
-        // services.putProduct(product)
+        services.putProduct(product)
         setWorld(w => ({...w, money: w.money - price}))
     }
 

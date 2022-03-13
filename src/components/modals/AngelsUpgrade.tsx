@@ -37,8 +37,7 @@ function CashUpgrades({products,services,upgrade,onUnlockedNotification,onAngelU
                 onUnlockedNotification( "All product x"+upgrade.ratio,'Angel upgrade unlocked')
                 onAngelUpgradeBuy(1,upgrade.seuil)
             }
-            // TODO
-            // services.putUpgrade(upgrade)
+            services.putAngelUpgrade(upgrade)
         }
     }
     function productCible(){

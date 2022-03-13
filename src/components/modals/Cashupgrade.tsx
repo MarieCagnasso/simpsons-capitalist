@@ -38,8 +38,7 @@ function CashUpgrades({products,money,services,upgrade,onUnlockedNotification,on
                 products.product.map(p=>addUpgrade(p))
                 onUnlockedNotification( "All product" + upgrade.typeratio +" x"+upgrade.ratio,'Upgrade unlocked')
             }
-            // TODO
-            // services.putUpgrade(upgrade)
+            services.putUpgrade(upgrade)
         }
         onCashUpgradeBuy(money)
     }

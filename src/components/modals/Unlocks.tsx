@@ -39,7 +39,7 @@ function Unlocks({products,services,allunlocks}:UnlocksProps) {
                 </Modal.Header>
                 <Modal.Body>
                     {products.product.map(p => unlockProd(p))}
-                    {allunlocks.pallier.filter(u => !u.unlocked).map(u => <Unlock unlock={u} services={services}/>)}
+                    {allunlocks.pallier.filter(u => !u.unlocked).map(u => <Unlock key={u.name} unlock={u} services={services}/>)}
                     </Modal.Body>
             </Modal>
         </>

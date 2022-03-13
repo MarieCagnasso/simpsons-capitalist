@@ -13,12 +13,12 @@ type ProductProps = {
     services: Services,
     qtmulti : String,
     wordmoney : number,
-    onUnlocked : (msg:string,title:string)=>void
+    onUnlockedNotification : (msg:string,title:string)=>void
     allUnlock : { "pallier": Pallier[]}
     onAllUnlock : (unlock : Pallier)=>void
 }
 
-function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti,wordmoney,onUnlocked,allUnlock,onAllUnlock} : ProductProps) {
+function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti,wordmoney,onUnlockedNotification,allUnlock,onAllUnlock} : ProductProps) {
     const [progress, setProgress] = useState(0)
     const [qtmultiNumber, setqtmultiNumber] = useState(0)
     const [qtexPrice, setQtexPrice] = useState(0)
@@ -74,7 +74,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                         if (unlock.typeratio=='GAIN'){
                             prod.revenu *= unlock.ratio
                         }
-                        onUnlocked(prod.name + " " + unlock.typeratio +" x"+unlock.ratio,'Unlocked')
+                        onUnlockedNotification(prod.name + " " + unlock.typeratio +" x"+unlock.ratio,'Unlocked')
                     }
                 }
             )
@@ -84,6 +84,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
         }
     }
 
+    useEffect(()=>setRevenu(prod.revenu*prod.quantite))
     const savedCallback = useRef(calcScore)
     useEffect(() => savedCallback.current = calcScore)
     useEffect(() => {

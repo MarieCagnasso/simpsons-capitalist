@@ -30,10 +30,10 @@ function App() {
 
         }
     }
-    function onUnlocked(msg:string,title:string){
+    function onUnlockedNotification(msg:string,title:string){
         setTitleToast(title)
         setMsgToast(msg)
-        toggleShowToast()
+        if (!showToast) toggleShowToast()
     }
     function isAllUnlocked(seuil:number){
         world.products.product.map(p =>{
@@ -69,6 +69,9 @@ function App() {
 
     function onHireManager(money: number, product: Product) {
         setWorld(w => ({...w, money: money,}))
+    }
+    function onCashUpgradeBuy(money:number){
+        setWorld(w => ({...w, money: money}))
     }
 
     function onUserNameChanged() {
@@ -107,7 +110,8 @@ else {
         <div className="App">
             <SideBar wordName={world.name} managers={world.managers} products={world.products}
                      money={world.money} services={services} allunlocks={world.allunlocks}
-                     onHireManager={onHireManager} cashUpgrade={world.upgrades}/>
+                     onHireManager={onHireManager} cashUpgrade={world.upgrades}
+                     onUnlockedNotification={onUnlockedNotification} onCashUpgradeBuy={onCashUpgradeBuy}/>
             <main>
                 <Container fluid className="mb-5">
                     <Row>
@@ -132,14 +136,15 @@ else {
                             <ProductComponent key={world.products.product[0].name} prod={world.products.product[0]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
-                                              onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
+                                              onProductBuy={onProductBuy} onUnlockedNotification={onUnlockedNotification}
+                                              onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}
+                            />
                         </Col>
                         <Col>
                             <ProductComponent key={world.products.product[1].name} prod={world.products.product[1]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onProductBuy={onProductBuy} onUnlockedNotification={onUnlockedNotification}
                                               onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                     </Row>
@@ -148,14 +153,14 @@ else {
                             <ProductComponent key={world.products.product[2].name} prod={world.products.product[2]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onProductBuy={onProductBuy} onUnlockedNotification={onUnlockedNotification}
                                               onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                         <Col>
                             <ProductComponent key={world.products.product[3].name} prod={world.products.product[3]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onProductBuy={onProductBuy} onUnlockedNotification={onUnlockedNotification}
                                               onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                     </Row>
@@ -164,14 +169,14 @@ else {
                             <ProductComponent key={world.products.product[4].name} prod={world.products.product[4]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onProductBuy={onProductBuy} onUnlockedNotification={onUnlockedNotification}
                                               onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                         <Col>
                             <ProductComponent key={world.products.product[5].name} prod={world.products.product[5]}
                                               services={services} qtmulti={qtmulti}
                                               wordmoney={world.money} onProductionDone={onProductionDone}
-                                              onProductBuy={onProductBuy} onUnlocked={onUnlocked}
+                                              onProductBuy={onProductBuy} onUnlockedNotification={onUnlockedNotification}
                                               onAllUnlock={onAllUnlock} allUnlock={world.allunlocks}/>
                         </Col>
                     </Row>

@@ -1,5 +1,4 @@
 import {Menu, MenuItem, ProSidebar, SidebarContent, SidebarFooter, SidebarHeader} from "react-pro-sidebar";
-import {BsCashCoin} from "react-icons/bs";
 import {GiAngelWings} from "react-icons/gi";
 import {FaGithub} from "react-icons/fa";
 import React, {useState} from "react";
@@ -7,7 +6,7 @@ import Managers from "./modals/Managers";
 import {Pallier, Product} from "../world";
 import {Services} from "../Services";
 import Unlocks from "./modals/Unlocks";
-import CashUpgrade from "./modals/CashUpgrade";
+import CashUpgrades from "./modals/CashUpgrades";
 
 type SideBarProps = {
     wordName: String
@@ -18,8 +17,10 @@ type SideBarProps = {
     onHireManager:(money:number,product:Product)=>void
     allunlocks : { "pallier": Pallier[]}
     cashUpgrade : { "pallier": Pallier[]}
+    onUnlockedNotification : (msg:string,title:string)=>void
+    onCashUpgradeBuy : (money:number)=>void
 }
-function SideBar({wordName, managers,products,money,services,onHireManager,allunlocks,cashUpgrade}:SideBarProps){
+function SideBar({wordName, managers,products,money,services,onHireManager,allunlocks,cashUpgrade,onUnlockedNotification,onCashUpgradeBuy}:SideBarProps){
     const [collapsed, setCollapsed] = useState(true);
     const handleCollapsedSidebar = () => {
         if (collapsed) {
@@ -57,7 +58,8 @@ function SideBar({wordName, managers,products,money,services,onHireManager,allun
             <SidebarContent>
                 <Menu iconShape="circle">
                     <Unlocks products={products} services={services} allunlocks={allunlocks}/>
-                    <CashUpgrade products={products} upgrades={cashUpgrade} money={money} services={services}/>
+                    <CashUpgrades products={products} upgrades={cashUpgrade} money={money}
+                                  services={services} onUnlockedNotification={onUnlockedNotification} onCashUpgradeBuy={onCashUpgradeBuy}/>
                     <MenuItem icon={<GiAngelWings/>}> Angel upgrade</MenuItem>
                     <Managers managers={managers} products={products} money={money} services={services} onHireManager={onHireManager}/>
                     <MenuItem icon={<GiAngelWings/>}> Angel</MenuItem>

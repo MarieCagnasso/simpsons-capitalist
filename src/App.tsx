@@ -140,7 +140,7 @@ else {
             <main>
                 <Container fluid className="mb-5">
                     <Row>
-                        <Col>score : {world.score}</Col>
+                        <Col>score : <span dangerouslySetInnerHTML={{__html: transform(world.score)}}/></Col>
                         <Col>$<span dangerouslySetInnerHTML={{__html: transform(world.money)}}/>
                     </Col>
                         <Col><Button onClick={multiplicateur}>x{qtmulti}</Button></Col>

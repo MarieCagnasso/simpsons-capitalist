@@ -36,7 +36,6 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
         if (prod.timeleft!==0 || prod.managerUnlocked){
             prod.timeleft-=(Date.now()- prod.lastupdate);
             prod.lastupdate = Date.now()
-            setVitesse(prod.timeleft)
             if (prod.timeleft<=0){
                 prod.timeleft = 0;
                 setProgress( 0);
@@ -49,6 +48,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                 }else {
                     setProgress( ((prod.vitesse - prod.timeleft)/prod.vitesse)*100)
                 }
+                setVitesse(prod.timeleft)
             }
         }
     }
@@ -120,7 +120,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                         <ProgressBar transitionDuration={"0.1s"} customLabel= {revenu.toString()} completed={progress} />
                     </Col>
                     <Col className="boxlabelproduct me-1" onClick={buyProduct}>
-                        {qtmultiNumber} {qtexPrice}
+                        {qtmultiNumber} <span dangerouslySetInnerHTML={{__html: transform(qtexPrice)}}/>
                     </Col>
                     <Col xs={3} className="boxlabelproduct">
                         <span dangerouslySetInnerHTML={{__html: transformTime(vitesse)}}/>

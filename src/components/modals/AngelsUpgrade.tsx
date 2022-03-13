@@ -8,13 +8,12 @@ import product from "../Product";
 type cashUpgradeProps = {
     products : { "product": Product[] }
     upgrade: Pallier
-    money : number
     activeangels: number
     services : Services
     onUnlockedNotification : (msg:string,title:string)=>void
     onAngelUpgradeBuy : (bonus:number,cout:number)=>void
 }
-function CashUpgrades({products,money,services,upgrade,onUnlockedNotification,onAngelUpgradeBuy,activeangels}:cashUpgradeProps) {
+function CashUpgrades({products,services,upgrade,onUnlockedNotification,onAngelUpgradeBuy,activeangels}:cashUpgradeProps) {
 
     function addUpgrade(prod:Product){
         if (upgrade.typeratio=='VITESSE'){
@@ -26,7 +25,7 @@ function CashUpgrades({products,money,services,upgrade,onUnlockedNotification,on
         }
     }
     function buyUPgrade(){
-        if (money >= upgrade.seuil){
+        if (activeangels >= upgrade.seuil){
             upgrade.unlocked = true
             if (upgrade.idcible!=0){
                 if (upgrade.typeratio=='ANGE'){
@@ -46,18 +45,15 @@ function CashUpgrades({products,money,services,upgrade,onUnlockedNotification,on
         if (upgrade.idcible===0)return "All product"
         else return 'Angel Effectiveness'
     }
-    function display() {
-        if (activeangels <= 0) return true
-        return money < upgrade.seuil
-    }
+
     return (
         <Row>
             <Col><img className={"imgManager"} src={services.server+upgrade.logo}></img></Col>
             <Col><p>{upgrade.name}</p>
-                <p>{upgrade.seuil}$</p>
+                <p>{upgrade.seuil} angels</p>
                 <p>{productCible()} {upgrade.typeratio} x{upgrade.ratio}</p>
             </Col>
-            <Col><Button disabled={display()} onClick={buyUPgrade} > Buy !</Button> </Col>
+            <Col><Button disabled={activeangels<upgrade.seuil} onClick={buyUPgrade} > Buy !</Button> </Col>
         </Row>
     );
 }export default CashUpgrades;

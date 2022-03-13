@@ -58,8 +58,8 @@ function SideBar({services,onHireManager,world,onUnlockedNotification,onCashUpgr
                     <Unlocks products={world.products} services={services} allunlocks={world.allunlocks}/>
                     <CashUpgrades products={world.products} upgrades={world.upgrades} money={world.money}
                                     services={services} onUnlockedNotification={onUnlockedNotification} onCashUpgradeBuy={onCashUpgradeBuy}/>
-                    <AngelsUpgrades products={world.products} upgrades={world.angelupgrades} money={world.money}
-                                    services={services} onUnlockedNotification={onUnlockedNotification} onAngelUpgradeBuy={onAngelUpgradeBuy}
+                    <AngelsUpgrades products={world.products} upgrades={world.angelupgrades} services={services}
+                                    onUnlockedNotification={onUnlockedNotification} onAngelUpgradeBuy={onAngelUpgradeBuy}
                                     activeangels={world.activeangels}/>
                     <Managers managers={world.managers} products={world.products} money={world.money} services={services} onHireManager={onHireManager}/>
                     <Angels totalangels={world.totalangels} activeangels={world.activeangels} angelbonus={world.angelbonus}

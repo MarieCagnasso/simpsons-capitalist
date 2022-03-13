@@ -75,7 +75,8 @@ function App() {
         setWorld(w => ({...w, money: money}))
     }
     function onAngelUpgradeBuy(bonus:number,cout:number){
-            setWorld(w => ({...w, money: world.money-cout, angelbonus:world.angelbonus*bonus}))
+            // @ts-ignore
+        setWorld(w => ({...w, angelupgrades: w.activeangels -cout, angelbonus:w.angelbonus*bonus}))
     }
 
     function onUserNameChanged() {

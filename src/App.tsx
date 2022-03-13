@@ -45,10 +45,10 @@ function App() {
         if(isAllUnlocked(unlock.seuil)){
             unlock.unlocked = true
             world.products.product.map(p=>{
-                if (unlock.typeratio=='VITESSE'){
+                if (unlock.typeratio=='VITESSE'||unlock.typeratio=='vitesse'){
                     p.vitesse /= unlock.ratio
                     p.timeleft /= unlock.ratio
-                }if (unlock.typeratio=='GAIN'){
+                }if (unlock.typeratio=='GAIN'||unlock.typeratio=='gain'){
                     p.revenu *= unlock.ratio
                 }
             })

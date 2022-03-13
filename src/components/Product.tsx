@@ -74,11 +74,11 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
             prod.palliers.pallier.filter(unlock => !unlock.unlocked).map(unlock=>{
                     if (unlock.seuil<=prod.quantite){
                         unlock.unlocked = true
-                        if (unlock.typeratio=='VITESSE'){
+                        if (unlock.typeratio=='VITESSE'||unlock.typeratio=='vitesse'){
                             prod.vitesse /= unlock.ratio
                             prod.timeleft /= unlock.ratio
                         }
-                        if (unlock.typeratio=='GAIN'){
+                        if (unlock.typeratio=='GAIN'||unlock.typeratio=='gain'){
                             prod.revenu *= unlock.ratio
                         }
                         onUnlockedNotification(prod.name + " " + unlock.typeratio +" x"+unlock.ratio,'Unlocked')

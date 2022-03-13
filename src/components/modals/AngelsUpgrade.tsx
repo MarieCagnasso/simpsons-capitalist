@@ -16,11 +16,11 @@ type cashUpgradeProps = {
 function CashUpgrades({products,services,upgrade,onUnlockedNotification,onAngelUpgradeBuy,activeangels}:cashUpgradeProps) {
 
     function addUpgrade(prod:Product){
-        if (upgrade.typeratio=='VITESSE'){
+        if (upgrade.typeratio=='VITESSE'||upgrade.typeratio=='vitesse'){
             prod.vitesse /= upgrade.ratio
             prod.timeleft /= upgrade.ratio
         }
-        if (upgrade.typeratio=='GAIN'){
+        if (upgrade.typeratio=='GAIN'||upgrade.typeratio=='gain'){
             prod.revenu *= upgrade.ratio
         }
     }

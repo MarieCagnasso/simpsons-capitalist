@@ -2,6 +2,8 @@ import {Pallier, Product} from "../../world";
 import {Button, Col, Row} from "react-bootstrap";
 import {Services} from "../../Services";
 import '../../style/manager.css'
+import {transform} from "../../App";
+import React from "react";
 
 type ManagerProps = {
     manager : Pallier
@@ -26,7 +28,8 @@ function Manager({manager,products,money,services,onHireManager}:ManagerProps){
 return(
     <Row>
         <Col><img className={"imgManager"} src={services.server+manager.logo}></img></Col>
-        <Col><p>{manager.name}</p><p>{products.product[manager.idcible-1].name}</p><p>${manager.seuil}</p></Col>
+        <Col><p>{manager.name}</p><p>{products.product[manager.idcible-1].name}</p>
+            <p>$<span dangerouslySetInnerHTML={{__html: transform(manager.seuil)}}/></p></Col>
         <Col><Button disabled={money < manager.seuil} onClick={hireManager}> Hire !</Button> </Col>
     </Row>
 )

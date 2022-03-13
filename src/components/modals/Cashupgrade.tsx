@@ -5,6 +5,7 @@ import {Pallier, Product} from "../../world";
 import {Services} from "../../Services";
 import {BsCashCoin} from "react-icons/bs";
 import product from "../Product";
+import {transform} from "../../App";
 type cashUpgradeProps = {
     products : { "product": Product[] }
     upgrade: Pallier
@@ -51,7 +52,7 @@ function CashUpgrades({products,money,services,upgrade,onUnlockedNotification,on
         <Row>
             <Col><img className={"imgManager"} src={services.server+upgrade.logo}></img></Col>
             <Col><p>{upgrade.name}</p>
-                <p>{upgrade.seuil}$</p>
+                <p>$<span dangerouslySetInnerHTML={{__html: transform(upgrade.seuil)}}/></p>
                 <p>{productCible()} {upgrade.typeratio} x{upgrade.ratio}</p>
             </Col>
             <Col><Button disabled={money < upgrade.seuil} onClick={buyUPgrade}> Buy !</Button> </Col>

@@ -25,9 +25,12 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
     const [revenu, setRevenu] = useState(prod.revenu)
 
     const startFabrication= () => {
-        prod.timeleft = prod.vitesse;
-        prod.lastupdate = Date.now();
+        if (prod.quantite>0){
+            prod.timeleft = prod.vitesse;
+            prod.lastupdate = Date.now();
+        }
     }
+    // 𝑝𝑟𝑜𝑑𝑢𝑐𝑡.𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑒 ∗ 𝑝𝑟𝑜𝑑𝑢𝑐𝑡.𝑟𝑒𝑣𝑒𝑛𝑢 ∗ (1 + 𝑤𝑜𝑟𝑙𝑑.𝑎𝑐𝑡𝑖𝑣𝑒𝑎𝑛𝑔𝑒𝑙𝑠 ∗ 𝑤𝑜𝑟𝑙𝑑.𝑎𝑛𝑔𝑒𝑙𝑏𝑜𝑛𝑢𝑠/100)
     const calcScore=()=>{
         if (prod.timeleft!==0 || prod.managerUnlocked){
             prod.timeleft-=(Date.now()- prod.lastupdate);
@@ -38,7 +41,11 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                 onProductionDone(prod);
                 if (prod.managerUnlocked) startFabrication();
             }else {
-                setProgress( ((prod.vitesse - prod.timeleft)/prod.vitesse)*100)
+                if (prod.vitesse<1000){
+                    setProgress(100)
+                }else {
+                    setProgress( ((prod.vitesse - prod.timeleft)/prod.vitesse)*100)
+                }
             }
         }
     }

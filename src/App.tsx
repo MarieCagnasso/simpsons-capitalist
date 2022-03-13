@@ -54,8 +54,9 @@ function App() {
             })
         }
     }
+    // 𝑟𝑜𝑑𝑢𝑐𝑡.𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑒 ∗ 𝑝𝑟𝑜𝑑𝑢𝑐𝑡.𝑟𝑒𝑣𝑒𝑛𝑢 ∗ (1 + 𝑤𝑜𝑟𝑙𝑑.𝑎𝑐𝑡𝑖𝑣𝑒𝑎𝑛𝑔𝑒𝑙𝑠 ∗ 𝑤𝑜𝑟𝑙𝑑.𝑎𝑛𝑔𝑒𝑙𝑏𝑜𝑛𝑢𝑠/100)
     function onProductionDone(p: Product): void {
-        addToScore(p.revenu*p.quantite)
+        addToScore(p.revenu*p.quantite*(1+world.activeangels*world.angelbonus/100))
     }
 
     function addToScore(value: number): void {
@@ -108,10 +109,8 @@ if (world.products.product.length === 0) return (<div></div>)
 else {
     return (
         <div className="App">
-            <SideBar wordName={world.name} managers={world.managers} products={world.products}
-                     money={world.money} services={services} allunlocks={world.allunlocks}
-                     onHireManager={onHireManager} cashUpgrade={world.upgrades}
-                     onUnlockedNotification={onUnlockedNotification} onCashUpgradeBuy={onCashUpgradeBuy}/>
+            <SideBar services={services} onHireManager={onHireManager} onUnlockedNotification={onUnlockedNotification}
+                     world={world} onCashUpgradeBuy={onCashUpgradeBuy}/>
             <main>
                 <Container fluid className="mb-5">
                     <Row>

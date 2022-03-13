@@ -3,24 +3,20 @@ import {GiAngelWings} from "react-icons/gi";
 import {FaGithub} from "react-icons/fa";
 import React, {useState} from "react";
 import Managers from "./modals/Managers";
-import {Pallier, Product} from "../world";
+import {Pallier, Product, World} from "../world";
 import {Services} from "../Services";
 import Unlocks from "./modals/Unlocks";
 import CashUpgrades from "./modals/CashUpgrades";
+import Angels from "./modals/Angels";
 
 type SideBarProps = {
-    wordName: String
-    managers : { "pallier": Pallier[]}
-    products : { "product": Product[] }
-    money : number
     services : Services
+    world:World
     onHireManager:(money:number,product:Product)=>void
-    allunlocks : { "pallier": Pallier[]}
-    cashUpgrade : { "pallier": Pallier[]}
     onUnlockedNotification : (msg:string,title:string)=>void
     onCashUpgradeBuy : (money:number)=>void
 }
-function SideBar({wordName, managers,products,money,services,onHireManager,allunlocks,cashUpgrade,onUnlockedNotification,onCashUpgradeBuy}:SideBarProps){
+function SideBar({services,onHireManager,world,onUnlockedNotification,onCashUpgradeBuy}:SideBarProps){
     const [collapsed, setCollapsed] = useState(true);
     const handleCollapsedSidebar = () => {
         if (collapsed) {
@@ -52,17 +48,19 @@ function SideBar({wordName, managers,products,money,services,onHireManager,allun
                     }}
                     onClick={() => handleCollapsedSidebar()}
                 >
-                    {wordName}
+                    {world.name}
                 </div>
             </SidebarHeader>
             <SidebarContent>
                 <Menu iconShape="circle">
-                    <Unlocks products={products} services={services} allunlocks={allunlocks}/>
-                    <CashUpgrades products={products} upgrades={cashUpgrade} money={money}
+                    <Unlocks products={world.products} services={services} allunlocks={world.allunlocks}/>
+                    <CashUpgrades products={world.products} upgrades={world.upgrades} money={world.money}
                                   services={services} onUnlockedNotification={onUnlockedNotification} onCashUpgradeBuy={onCashUpgradeBuy}/>
                     <MenuItem icon={<GiAngelWings/>}> Angel upgrade</MenuItem>
-                    <Managers managers={managers} products={products} money={money} services={services} onHireManager={onHireManager}/>
-                    <MenuItem icon={<GiAngelWings/>}> Angel</MenuItem>
+                    <Managers managers={world.managers} products={world.products} money={world.money} services={services} onHireManager={onHireManager}/>
+                    <Angels totalangels={world.totalangels} activeangels={world.activeangels} angelbonus={world.angelbonus}
+                            score={world.score} services={services}/>
+                    {/*<MenuItem icon={<GiAngelWings/>}> Angel</MenuItem>*/}
                 </Menu>
             </SidebarContent>
             <SidebarFooter style={{textAlign: 'center'}}>

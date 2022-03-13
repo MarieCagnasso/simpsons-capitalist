@@ -7,6 +7,28 @@ import SideBar from "./components/SideBar";
 import {Button, Col, Container, Row, Toast, ToastContainer} from "react-bootstrap";
 import ProductComponent from "./components/Product";
 
+export function transform(valeur: number): string {
+    let res : string = "";
+    if (valeur < 1000)
+        res = valeur.toFixed(2);
+    else if (valeur < 1000000)
+        res = valeur.toFixed(0);
+    else if (valeur >= 1000000) {
+        res = valeur.toPrecision(4);
+        res = res.replace(/e\+(.*)/, " 10<sup>$1</sup>"); }
+    return res; }
+
+export function transformTime(valeur: number): string {
+    let ms = valeur % 1000;
+    valeur = (valeur - ms) / 1000;
+    let secs = valeur % 60;
+    valeur = (valeur - secs) / 60;
+    let mins = valeur % 60;
+
+    if (ms>100){ms/=10}
+    return   mins + ':' + secs + ':' + Math.round(ms);
+}
+
 function App() {
     const [services, setServices] = useState(new Services(""))
     const [world, setWorld] = useState(new World())
@@ -119,7 +141,8 @@ else {
                 <Container fluid className="mb-5">
                     <Row>
                         <Col>score : {world.score}</Col>
-                        <Col>${world.money}</Col>
+                        <Col>$<span dangerouslySetInnerHTML={{__html: transform(world.money)}}/>
+                    </Col>
                         <Col><Button onClick={multiplicateur}>x{qtmulti}</Button></Col>
                         <Col>Username<input id="username" type="text" value={username} onChange={onUserNameChanged}/></Col>
                     </Row>

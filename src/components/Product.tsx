@@ -5,6 +5,7 @@ import {Col, Row} from "react-bootstrap";
 import React, {useEffect, useRef, useState} from "react";
 import ProgressBar from "./ProgressBar";
 import unlock from "./modals/Unlock";
+import {transform, transformTime} from "../App";
 
 type ProductProps = {
     prod: Product,
@@ -35,6 +36,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
         if (prod.timeleft!==0 || prod.managerUnlocked){
             prod.timeleft-=(Date.now()- prod.lastupdate);
             prod.lastupdate = Date.now()
+            setVitesse(prod.timeleft)
             if (prod.timeleft<=0){
                 prod.timeleft = 0;
                 setProgress( 0);
@@ -47,7 +49,6 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                 }else {
                     setProgress( ((prod.vitesse - prod.timeleft)/prod.vitesse)*100)
                 }
-                setVitesse(prod.timeleft)
             }
         }
     }
@@ -122,7 +123,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                         {qtmultiNumber} {qtexPrice}
                     </Col>
                     <Col xs={3} className="boxlabelproduct">
-                        {vitesse}
+                        <span dangerouslySetInnerHTML={{__html: transformTime(vitesse)}}/>
                     </Col>
                 </Row>
             </Col>

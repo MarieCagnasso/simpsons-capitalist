@@ -8,6 +8,7 @@ import {Services} from "../Services";
 import Unlocks from "./modals/Unlocks";
 import CashUpgrades from "./modals/CashUpgrades";
 import Angels from "./modals/Angels";
+import AngelsUpgrades from "./modals/AngelsUpgrades";
 
 type SideBarProps = {
     services : Services
@@ -15,8 +16,9 @@ type SideBarProps = {
     onHireManager:(money:number,product:Product)=>void
     onUnlockedNotification : (msg:string,title:string)=>void
     onCashUpgradeBuy : (money:number)=>void
+    onAngelUpgradeBuy : (bonus:number,cout:number)=>void
 }
-function SideBar({services,onHireManager,world,onUnlockedNotification,onCashUpgradeBuy}:SideBarProps){
+function SideBar({services,onHireManager,world,onUnlockedNotification,onCashUpgradeBuy,onAngelUpgradeBuy}:SideBarProps){
     const [collapsed, setCollapsed] = useState(true);
     const handleCollapsedSidebar = () => {
         if (collapsed) {
@@ -55,12 +57,13 @@ function SideBar({services,onHireManager,world,onUnlockedNotification,onCashUpgr
                 <Menu iconShape="circle">
                     <Unlocks products={world.products} services={services} allunlocks={world.allunlocks}/>
                     <CashUpgrades products={world.products} upgrades={world.upgrades} money={world.money}
-                                  services={services} onUnlockedNotification={onUnlockedNotification} onCashUpgradeBuy={onCashUpgradeBuy}/>
-                    <MenuItem icon={<GiAngelWings/>}> Angel upgrade</MenuItem>
+                                    services={services} onUnlockedNotification={onUnlockedNotification} onCashUpgradeBuy={onCashUpgradeBuy}/>
+                    <AngelsUpgrades products={world.products} upgrades={world.angelupgrades} money={world.money}
+                                    services={services} onUnlockedNotification={onUnlockedNotification} onAngelUpgradeBuy={onAngelUpgradeBuy}
+                                    activeangels={world.activeangels}/>
                     <Managers managers={world.managers} products={world.products} money={world.money} services={services} onHireManager={onHireManager}/>
                     <Angels totalangels={world.totalangels} activeangels={world.activeangels} angelbonus={world.angelbonus}
                             score={world.score} services={services}/>
-                    {/*<MenuItem icon={<GiAngelWings/>}> Angel</MenuItem>*/}
                 </Menu>
             </SidebarContent>
             <SidebarFooter style={{textAlign: 'center'}}>

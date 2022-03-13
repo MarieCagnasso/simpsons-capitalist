@@ -74,6 +74,9 @@ function App() {
     function onCashUpgradeBuy(money:number){
         setWorld(w => ({...w, money: money}))
     }
+    function onAngelUpgradeBuy(bonus:number,cout:number){
+            setWorld(w => ({...w, money: world.money-cout, angelbonus:world.angelbonus*bonus}))
+    }
 
     function onUserNameChanged() {
         // @ts-ignore
@@ -110,7 +113,7 @@ else {
     return (
         <div className="App">
             <SideBar services={services} onHireManager={onHireManager} onUnlockedNotification={onUnlockedNotification}
-                     world={world} onCashUpgradeBuy={onCashUpgradeBuy}/>
+                     world={world} onCashUpgradeBuy={onCashUpgradeBuy} onAngelUpgradeBuy={onAngelUpgradeBuy}/>
             <main>
                 <Container fluid className="mb-5">
                     <Row>

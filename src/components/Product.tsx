@@ -30,10 +30,11 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
         if (prod.quantite>0){
             prod.timeleft = prod.vitesse;
             prod.lastupdate = Date.now();
+            setVitesse(prod.vitesse)
         }
     }
     const calcScore=()=>{
-        if (prod.timeleft!==0 || prod.managerUnlocked){
+        if (prod.timeleft>0){
             prod.timeleft-=(Date.now()- prod.lastupdate);
             prod.lastupdate = Date.now()
             if (prod.timeleft<=0){
@@ -50,7 +51,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                 }
                 setVitesse(prod.timeleft)
             }
-        }
+        }else if(prod.managerUnlocked) startFabrication();
     }
 
     const calcMaxCanBuy = () => {

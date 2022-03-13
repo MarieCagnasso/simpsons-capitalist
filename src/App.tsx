@@ -69,7 +69,7 @@ function App() {
     }
 
     function onHireManager(money: number, product: Product) {
-        setWorld(w => ({...w, money: money,}))
+        setWorld(w => ({...w, money: money}))
     }
     function onCashUpgradeBuy(money:number){
         setWorld(w => ({...w, money: money}))

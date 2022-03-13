@@ -23,6 +23,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
     const [qtmultiNumber, setqtmultiNumber] = useState(0)
     const [qtexPrice, setQtexPrice] = useState(0)
     const [revenu, setRevenu] = useState(prod.revenu)
+    const [vitesse, setVitesse] = useState(prod.vitesse)
 
     const startFabrication= () => {
         if (prod.quantite>0){
@@ -30,7 +31,6 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
             prod.lastupdate = Date.now();
         }
     }
-    // 𝑝𝑟𝑜𝑑𝑢𝑐𝑡.𝑞𝑢𝑎𝑛𝑡𝑖𝑡𝑒 ∗ 𝑝𝑟𝑜𝑑𝑢𝑐𝑡.𝑟𝑒𝑣𝑒𝑛𝑢 ∗ (1 + 𝑤𝑜𝑟𝑙𝑑.𝑎𝑐𝑡𝑖𝑣𝑒𝑎𝑛𝑔𝑒𝑙𝑠 ∗ 𝑤𝑜𝑟𝑙𝑑.𝑎𝑛𝑔𝑒𝑙𝑏𝑜𝑛𝑢𝑠/100)
     const calcScore=()=>{
         if (prod.timeleft!==0 || prod.managerUnlocked){
             prod.timeleft-=(Date.now()- prod.lastupdate);
@@ -38,6 +38,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
             if (prod.timeleft<=0){
                 prod.timeleft = 0;
                 setProgress( 0);
+                setVitesse(prod.vitesse)
                 onProductionDone(prod);
                 if (prod.managerUnlocked) startFabrication();
             }else {
@@ -46,6 +47,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                 }else {
                     setProgress( ((prod.vitesse - prod.timeleft)/prod.vitesse)*100)
                 }
+                setVitesse(prod.timeleft)
             }
         }
     }
@@ -120,7 +122,7 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                         {qtmultiNumber} {qtexPrice}
                     </Col>
                     <Col xs={3} className="boxlabelproduct">
-                        {prod.vitesse}
+                        {vitesse}
                     </Col>
                 </Row>
             </Col>

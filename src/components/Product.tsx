@@ -56,7 +56,6 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
             setProgress( 0);
             setVitesse(prod.vitesse)
         }
-
     }
 
     const calcMaxCanBuy = () => {

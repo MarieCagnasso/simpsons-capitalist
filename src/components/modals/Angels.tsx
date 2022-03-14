@@ -26,13 +26,13 @@ function Angels({totalangels,activeangels,angelbonus,score,services}:angelsProps
         <>
             <span onClick={handleShow}>
                 <MenuItem icon={<GiAngelWings/>}>
-                    Angels investitors
+                    Angels
                 </MenuItem>
             </span>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Managers make you feel better !</Modal.Title>
+                    <Modal.Title>Angels investitors</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <p>{totalangels} Total Angels</p>

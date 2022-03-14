@@ -77,7 +77,7 @@ function App() {
         }
     }
     function onProductionDone(p: Product): void {
-        services.putProduct(p)
+        if (!p.managerUnlocked) services.putProduct(p)
         addToScore(p.revenu*p.quantite*(1+world.activeangels*world.angelbonus/100))
     }
 

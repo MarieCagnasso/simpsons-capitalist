@@ -52,6 +52,8 @@ function ProductComponent({ prod,onProductionDone,onProductBuy, services,qtmulti
                 setVitesse(prod.timeleft)
             }
         }else if(prod.managerUnlocked) startFabrication();
+        else setProgress( 0);
+
     }
 
     const calcMaxCanBuy = () => {
